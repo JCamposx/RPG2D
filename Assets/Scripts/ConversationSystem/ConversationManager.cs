@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ConversationManager : MonoBehaviour
 {
-    public static ConversationManager Instance {private set; get;}
+    public static ConversationManager Instance { private set; get; }
     public event UnityAction<Interaction> OnConversationStart;
     public event UnityAction<Interaction> OnConversationNext;
     public event UnityAction OnConversationStop;
@@ -33,7 +33,8 @@ public class ConversationManager : MonoBehaviour
             OnConversationNext?.Invoke(
                 mActiveConversation.Interactions[mInteractionIndex++]
             );
-        }else
+        }
+        else
         {
             StopConversation();
         }

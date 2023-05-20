@@ -9,10 +9,12 @@ namespace Enemy
         public AttackingState(EnemyController controller) : base(controller)
         {
             Transitions.Add(new FSMTransition<EnemyController>(
-                isValid : () => {
+                isValid: () =>
+                {
                     return mController.AttackingEnd;
                 },
-                getNextState : () => {
+                getNextState: () =>
+                {
                     return new IdleState(mController);
                 }
             ));
@@ -31,7 +33,6 @@ namespace Enemy
             mController.hitBox.gameObject.SetActive(false);
         }
 
-        public override void OnUpdate(float deltaTime)
-        {}
+        public override void OnUpdate(float deltaTime) { }
     }
 }

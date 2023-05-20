@@ -11,25 +11,29 @@ namespace Enemy
         public MovingState(EnemyController controller) : base(controller)
         {
             Transitions.Add(new FSMTransition<EnemyController>(
-                isValid : () => {
+                isValid: () =>
+                {
                     return Vector3.Distance(
                         mController.transform.position,
                         mController.Player.transform.position
                     ) >= mController.WakeDistance;
                 },
-                getNextState : () => {
+                getNextState: () =>
+                {
                     return new IdleState(mController);
                 }
             ));
 
             Transitions.Add(new FSMTransition<EnemyController>(
-                isValid : () => {
+                isValid: () =>
+                {
                     return Vector3.Distance(
                         mController.transform.position,
                         mController.Player.transform.position
                     ) <= mController.AttackDistance;
                 },
-                getNextState : () => {
+                getNextState: () =>
+                {
                     return new AttackingState(mController);
                 }
             ));

@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
         hitBox = transform.Find("HitBox");
 
         ConversationManager.Instance.OnConversationStop += OnConversationStopDelegate;
-        
     }
 
     private void OnConversationStopDelegate()
@@ -40,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
             mAnimator.SetBool("IsMoving", true);
             mAnimator.SetFloat("Horizontal", mDirection.x);
             mAnimator.SetFloat("Vertical", mDirection.y);
-        }else
+        }
+        else
         {
             // Quieto
             mAnimator.SetBool("IsMoving", false);

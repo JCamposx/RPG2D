@@ -10,25 +10,29 @@ namespace Enemy
         {
             // Transiciones
             Transitions.Add(new FSMTransition<EnemyController>(
-                isValid : () => {
+                isValid: () =>
+                {
                     return Vector3.Distance(
                         mController.transform.position,
                         mController.Player.transform.position
                     ) < mController.WakeDistance;
                 },
-                getNextState : () => {
+                getNextState: () =>
+                {
                     return new MovingState(mController);
                 }
             ));
 
             Transitions.Add(new FSMTransition<EnemyController>(
-                isValid : () => {
+                isValid: () =>
+                {
                     return Vector3.Distance(
                         mController.transform.position,
                         mController.Player.transform.position
                     ) <= mController.AttackDistance;
                 },
-                getNextState : () => {
+                getNextState: () =>
+                {
                     return new AttackingState(mController);
                 }
             ));
@@ -48,8 +52,6 @@ namespace Enemy
             Debug.Log("OnExit IdleState");
         }
 
-        public override void OnUpdate(float deltaTime)
-        {}
+        public override void OnUpdate(float deltaTime) { }
     }
-    
 }

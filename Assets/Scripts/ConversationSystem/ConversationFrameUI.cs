@@ -44,6 +44,4 @@ public class ConversationFrameUI : MonoBehaviour
     {
         transform.gameObject.SetActive(false);
     }
-
-
 }

@@ -14,6 +14,8 @@ public abstract class FSMState<T>
     }
 
     public abstract void OnEnter();
+
     public abstract void OnUpdate(float deltaTime);
+
     public abstract void OnExit();
 }
