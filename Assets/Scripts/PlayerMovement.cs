@@ -2,19 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 4f;
+    #region SerializeField
+    [SerializeField] private float speed = 4f;
+    [SerializeField] private Image fireIcon;
+    [SerializeField] private Image swordIcon;
+    #endregion
 
+    #region ObjectComponents
     private Rigidbody2D mRb;
     private Vector3 mDirection = Vector3.zero;
     private Animator mAnimator;
     private PlayerInput mPlayerInput;
     private Transform hitBox;
+    #endregion
+
+    #region AttackFields
+    private bool swordAttack = true;
+    private float attackDamage = 1f;
+    #endregion
 
     private void Start()
     {
@@ -45,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
             // Quieto
             mAnimator.SetBool("IsMoving", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl)) toggleAttack();
     }
 
     private void FixedUpdate()
@@ -97,5 +110,15 @@ public class PlayerMovement : MonoBehaviour
     public void DisableHitBox()
     {
         hitBox.gameObject.SetActive(false);
+    }
+
+    private void toggleAttack()
+    {
+        swordIcon.enabled = !swordAttack;
+        fireIcon.enabled = swordAttack;
+
+        swordAttack = !swordAttack;
+
+        attackDamage = (swordAttack) ? 1f : 0.5f;
     }
 }
