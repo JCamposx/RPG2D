@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 170
+  spritePixelsToUnits: 140
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -191,8 +191,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       IconSet_151: 927297718
-      IconSet_272: -494137195
-      IconSet_129: 1051237416
+      IconSet_162: -675959733
+      IconSet_101: 1479754433
       IconSet_82: 2026439344
       IconSet_160: 1980956076
       IconSet_208: -1636992490
@@ -476,9 +476,9 @@ TextureImporter:
       IconSet_255: 1315956711
       IconSet_241: -1810971009
       IconSet_126: -6408013
+      IconSet_129: 1051237416
       IconSet_135: -644489991
-      IconSet_162: -675959733
-      IconSet_101: 1479754433
+      IconSet_272: -494137195
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

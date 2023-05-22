@@ -27,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     private float attackDamage = 1f;
     #endregion
 
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform shootController;
+    public char lastKey = 'S';
+
     private void Start()
     {
         mRb = GetComponent<Rigidbody2D>();
@@ -56,6 +60,11 @@ public class PlayerMovement : MonoBehaviour
             // Quieto
             mAnimator.SetBool("IsMoving", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.W)) lastKey = 'W';
+        else if (Input.GetKeyDown(KeyCode.A)) lastKey = 'A';
+        else if (Input.GetKeyDown(KeyCode.S)) lastKey = 'S';
+        else if (Input.GetKeyDown(KeyCode.D)) lastKey = 'D';
 
         if (Input.GetKeyDown(KeyCode.LeftControl)) toggleAttack();
     }
@@ -94,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
         {
             mAnimator.SetTrigger("Attack");
             hitBox.gameObject.SetActive(true);
+
+            if (!swordAttack)
+            {
+                shoot();
+            }
         }
     }
 
@@ -120,5 +134,10 @@ public class PlayerMovement : MonoBehaviour
         swordAttack = !swordAttack;
 
         attackDamage = (swordAttack) ? 1f : 0.5f;
+    }
+
+    public void shoot()
+    {
+        Instantiate(bullet, shootController.position, shootController.rotation);
     }
 }
