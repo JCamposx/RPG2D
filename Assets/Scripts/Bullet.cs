@@ -5,12 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float speed = 8f;
-    private Vector2 direction;
     private PlayerMovement player;
 
     void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(Vector2.down * speed * Time.deltaTime);
     }
 
     void Start()
@@ -19,23 +18,23 @@ public class Bullet : MonoBehaviour
 
         if (player.lastKey == 'W')
         {
-            direction = Vector2.up;
             transform.position = player.transform.position + new Vector3(0f, 0.95f, 0f);
+            transform.Rotate(0f, 0f, 180f);
         }
         else if (player.lastKey == 'A')
         {
-            direction = Vector2.left;
+            transform.Rotate(0f, 0f, -90f);
             transform.position = player.transform.position + new Vector3(-0.95f, 0f, 0f);
         }
         else if (player.lastKey == 'S')
         {
-            direction = Vector2.down;
             transform.position = player.transform.position + new Vector3(0f, -0.95f, 0f);
+            transform.Rotate(0f, 0f, 0f);
         }
         else if (player.lastKey == 'D')
         {
-            direction = Vector2.right;
             transform.position = player.transform.position + new Vector3(0.95f, 0f, 0f);
+            transform.Rotate(0f, 0f, 90f);
         }
 
         Invoke("DestroyGameObject", 10f);

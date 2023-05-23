@@ -117,28 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bullet
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 20058f388a9860f4d86a577b18dcc5ee
-      internalID: -2055414566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire
+      name: FireIcon
       rect:
         serializedVersion: 2
         x: 0
@@ -159,12 +138,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sword
+      name: SwordIcon
       rect:
         serializedVersion: 2
         x: 320
         y: 384
-        width: 32
+        width: 31
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -191,8 +170,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       IconSet_151: 927297718
-      IconSet_162: -675959733
-      IconSet_101: 1479754433
+      IconSet_272: -494137195
+      IconSet_135: -644489991
       IconSet_82: 2026439344
       IconSet_160: 1980956076
       IconSet_208: -1636992490
@@ -241,7 +220,6 @@ TextureImporter:
       IconSet_85: 7805718
       IconSet_127: 1905346967
       IconSet_117: 1282368295
-      Fire: 56687201
       IconSet_24: 301164991
       IconSet_42: 2117234383
       IconSet_70: -1593626569
@@ -285,6 +263,7 @@ TextureImporter:
       IconSet_118: 70222856
       IconSet_103: 1396767560
       IconSet_161: 332984171
+      SwordIcon: 1643707780
       IconSet_159: 412216058
       IconSet_134: -579202612
       IconSet_157: 2056264670
@@ -382,6 +361,7 @@ TextureImporter:
       IconSet_123: -1312293961
       IconSet_230: -53717581
       IconSet_37: -1321488503
+      FireIcon: 56687201
       IconSet_81: -1853829035
       IconSet_148: -2061734674
       IconSet_283: 1723971064
@@ -461,7 +441,6 @@ TextureImporter:
       IconSet_114: -1032483104
       IconSet_142: -1059049597
       IconSet_261: -478717864
-      Sword: 1643707780
       IconSet_268: 1225422954
       IconSet_166: -1061022187
       IconSet_43: -1982886163
@@ -477,8 +456,8 @@ TextureImporter:
       IconSet_241: -1810971009
       IconSet_126: -6408013
       IconSet_129: 1051237416
-      IconSet_135: -644489991
-      IconSet_272: -494137195
+      IconSet_162: -675959733
+      IconSet_101: 1479754433
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
