@@ -31,6 +31,9 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         hitBox = transform.Find("HitBox");
 
+        animator.SetFloat("Horizontal", 0f);
+        animator.SetFloat("Vertical", -1f);
+
         // Creo la maquina de estado finita
         mFSM = new FSM<EnemyController>(new Enemy.IdleState(this));
         mFSM.Begin();  // prendo la mquina de estados

@@ -42,8 +42,6 @@ namespace Enemy
         {
             Debug.Log("OnEnter IdleState");
             mController.animator.SetBool("IsMoving", false);
-            mController.animator.SetFloat("Horizontal", 0f);
-            mController.animator.SetFloat("Vertical", -1f);
             mController.AttackingEnd = false;
         }
 
