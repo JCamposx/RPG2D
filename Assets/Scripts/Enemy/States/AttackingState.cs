@@ -18,6 +18,17 @@ namespace Enemy
                     return new IdleState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.InvokerTime >= mController.InvokingInterval && mController.CanInvoke;
+                },
+                getNextState: () =>
+                {
+                    return new InvokingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()
@@ -33,6 +44,9 @@ namespace Enemy
             mController.hitBox.gameObject.SetActive(false);
         }
 
-        public override void OnUpdate(float deltaTime) { }
+        public override void OnUpdate(float deltaTime)
+        {
+            mController.InvokerTime += deltaTime;
+        }
     }
 }

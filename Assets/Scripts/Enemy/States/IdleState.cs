@@ -36,6 +36,17 @@ namespace Enemy
                     return new AttackingState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.InvokerTime >= mController.InvokingInterval && mController.CanInvoke;
+                },
+                getNextState: () =>
+                {
+                    return new InvokingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()
@@ -43,6 +54,7 @@ namespace Enemy
             Debug.Log("OnEnter IdleState");
             mController.animator.SetBool("IsMoving", false);
             mController.AttackingEnd = false;
+            mController.InvokingEnd = false;
         }
 
         public override void OnExit()
@@ -50,6 +62,9 @@ namespace Enemy
             Debug.Log("OnExit IdleState");
         }
 
-        public override void OnUpdate(float deltaTime) { }
+        public override void OnUpdate(float deltaTime)
+        {
+            mController.InvokerTime += deltaTime;
+        }
     }
 }

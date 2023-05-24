@@ -7,52 +7,72 @@ public class SpawnObjects : MonoBehaviour
     [SerializeField] GameObject enemy;
     [SerializeField] Transform player;
     private Animator mAnimator;
-    private float spawnInterval = 8f;
     private float enemiesQuantity = 4f;
-    private bool hasDied = false;
+    private bool spawnDiagonal = false;
 
     void Start()
     {
         mAnimator = GetComponent<Animator>();
-        int dieTriggerHash = Animator.StringToHash("Die");
-        InvokeRepeating("SpawnEnemies", spawnInterval, spawnInterval);
     }
 
-    void Update() {
-        if (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Die")) hasDied = true;
-    }
-
-    void SpawnEnemies()
+    public void SpawnEnemies()
     {
-        if (hasDied) return;
-
-        mAnimator.SetTrigger("Invoke");
-
         for (int i = 0; i < enemiesQuantity; i++)
         {
-            Vector2 posicionSpawn = GetSpawnPosition(i);
-            GameObject prefabInstance = Instantiate(enemy, posicionSpawn, Quaternion.identity);
-            prefabInstance.GetComponent<EnemyController>().Player = player;
+            if (spawnDiagonal)
+            {
+                Vector2 posicionSpawn = GetSpawnPositionDiagonal(i);
+                GameObject prefabInstance = Instantiate(enemy, posicionSpawn, Quaternion.identity);
+                prefabInstance.GetComponent<EnemyController>().Player = player;
+            }
+            else
+            {
+                Vector2 posicionSpawn = GetSpawnPositionVerticalAndHorizontal(i);
+                GameObject prefabInstance = Instantiate(enemy, posicionSpawn, Quaternion.identity);
+                prefabInstance.GetComponent<EnemyController>().Player = player;
+            }
+        }
+
+        spawnDiagonal = !spawnDiagonal;
+    }
+
+    Vector2 GetSpawnPositionVerticalAndHorizontal(int index)
+    {
+        float distancia = 0.95f;
+        Vector2 bossPosition = transform.position;
+
+        switch (index)
+        {
+            case 0: // Up
+                return new Vector2(bossPosition.x, bossPosition.y + distancia);
+            case 1: // Right
+                return new Vector2(bossPosition.x + distancia, bossPosition.y);
+            case 2: // Down
+                return new Vector2(bossPosition.x, bossPosition.y - distancia);
+            case 3: // Left
+                return new Vector2(bossPosition.x - distancia, bossPosition.y);
+            default:
+                return bossPosition;
         }
     }
 
-    Vector2 GetSpawnPosition(int indice)
+    Vector2 GetSpawnPositionDiagonal(int index)
     {
         float distancia = 0.95f;
-        Vector2 posicionPadre = transform.position;
+        Vector2 bossPosition = transform.position;
 
-        switch (indice)
+        switch (index)
         {
-            case 0: // Arriba
-                return new Vector2(posicionPadre.x, posicionPadre.y + distancia);
-            case 1: // Derecha
-                return new Vector2(posicionPadre.x + distancia, posicionPadre.y);
-            case 2: // Abajo
-                return new Vector2(posicionPadre.x, posicionPadre.y - distancia);
-            case 3: // Izquierda
-                return new Vector2(posicionPadre.x - distancia, posicionPadre.y);
+            case 0: // Up left
+                return new Vector2(bossPosition.x - distancia, bossPosition.y + distancia);
+            case 1: // Up Right
+                return new Vector2(bossPosition.x + distancia, bossPosition.y + distancia);
+            case 2: // Down Right
+                return new Vector2(bossPosition.x + distancia, bossPosition.y - distancia);
+            case 3: // Down Left
+                return new Vector2(bossPosition.x - distancia, bossPosition.y - distancia);
             default:
-                return posicionPadre;
+                return bossPosition;
         }
     }
 }

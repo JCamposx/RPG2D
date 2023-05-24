@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float WakeDistance = 5f;
     public float Speed = 2f;
     public float AttackDistance = 1f;
+    public bool CanInvoke;
     #endregion
 
     #region Components
@@ -17,6 +18,10 @@ public class EnemyController : MonoBehaviour
     public Rigidbody2D rb { private set; get; }
     public Animator animator { private set; get; }
     public bool AttackingEnd { set; get; } = false;
+    public bool InvokingEnd { set; get; } = false;
+    public float InvokingInterval { set; get; } = 4f;
+    public float InvokerTime { set; get; } = 0f;
+    public SpawnObjects spawnObjects { set; get; }
     public Transform hitBox { private set; get; }
     #endregion
 
@@ -29,6 +34,7 @@ public class EnemyController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spawnObjects = GetComponent<SpawnObjects>();
         hitBox = transform.Find("HitBox");
 
         animator.SetFloat("Horizontal", 0f);
@@ -47,5 +53,10 @@ public class EnemyController : MonoBehaviour
     public void SetAttackingEnd()
     {
         AttackingEnd = true;
+    }
+
+    public void SetInvokingEnd()
+    {
+        InvokingEnd = true;
     }
 }

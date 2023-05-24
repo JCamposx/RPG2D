@@ -37,6 +37,17 @@ namespace Enemy
                     return new AttackingState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.InvokerTime >= mController.InvokingInterval && mController.CanInvoke;
+                },
+                getNextState: () =>
+                {
+                    return new InvokingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()
@@ -66,6 +77,8 @@ namespace Enemy
             mController.rb.MovePosition(
                 mController.transform.position + (mDirection * mController.Speed * deltaTime)
             );
+
+            mController.InvokerTime += deltaTime;
         }
     }
 }
