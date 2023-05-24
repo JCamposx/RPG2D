@@ -9,16 +9,25 @@ public class SpawnObjects : MonoBehaviour
     private Animator mAnimator;
     private float spawnInterval = 8f;
     private float enemiesQuantity = 4f;
+    private bool hasDied = false;
 
     void Start()
     {
         mAnimator = GetComponent<Animator>();
+        int dieTriggerHash = Animator.StringToHash("Die");
         InvokeRepeating("SpawnEnemies", spawnInterval, spawnInterval);
+    }
+
+    void Update() {
+        if (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Die")) hasDied = true;
     }
 
     void SpawnEnemies()
     {
+        if (hasDied) return;
+
         mAnimator.SetTrigger("Invoke");
+
         for (int i = 0; i < enemiesQuantity; i++)
         {
             Vector2 posicionSpawn = GetSpawnPosition(i);
