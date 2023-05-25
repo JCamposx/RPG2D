@@ -29,6 +29,17 @@ namespace Enemy
                     return new TpingState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.IsBoss && mController.bossHealthBar.value <= 0;
+                },
+                getNextState: () =>
+                {
+                    return new DyingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()

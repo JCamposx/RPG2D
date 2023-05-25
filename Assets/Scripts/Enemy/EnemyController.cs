@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
         if (IsBoss)
         {
             bossHealthBar.value = 30f;
-            health = 1000f;
+            health = 10000f;
         }
         else
         {
@@ -70,25 +70,30 @@ public class EnemyController : MonoBehaviour
     {
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
-            if (IsBoss)
-            {
-                if (bossCanReceiveDamage)
-                {
-                    bossHealthBar.value -= GameManager.Instance.PlayerDamage;
-                    bossCanReceiveDamage = false;
-                    Invoke("SetBossCanReceiveDamage", 0.5f);
-                }
-            }
-            else
-            {
-                health -= GameManager.Instance.PlayerDamage;
+            ManageGetDamage();
+        }
+    }
 
-                if (health <= 0)
-                {
-                    Destroy(gameObject);
-                }
+    private void ManageGetDamage()
+    {
+        if (IsBoss)
+        {
+            if (!bossCanReceiveDamage) return;
+
+            bossHealthBar.value -= GameManager.Instance.PlayerDamage;
+            bossCanReceiveDamage = false;
+            Invoke("SetBossCanReceiveDamage", 0.5f);
+        }
+        else
+        {
+            health -= GameManager.Instance.PlayerDamage;
+
+            if (health <= 0)
+            {
+                Destroy(gameObject);
             }
         }
+
     }
 
     private void SetBossCanReceiveDamage()

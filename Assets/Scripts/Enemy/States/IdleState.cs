@@ -40,7 +40,7 @@ namespace Enemy
             Transitions.Add(new FSMTransition<EnemyController>(
                 isValid: () =>
                 {
-                    return mController.InvokerTime >= mController.InvokingInterval && mController.IsBoss;
+                    return mController.IsBoss && mController.InvokerTime >= mController.InvokingInterval;
                 },
                 getNextState: () =>
                 {
@@ -51,11 +51,22 @@ namespace Enemy
             Transitions.Add(new FSMTransition<EnemyController>(
                 isValid: () =>
                 {
-                    return mController.TpTime >= mController.TpingInterval && mController.IsBoss;
+                    return mController.IsBoss && mController.TpTime >= mController.TpingInterval;
                 },
                 getNextState: () =>
                 {
                     return new TpingState(mController);
+                }
+            ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.IsBoss && mController.bossHealthBar.value <= 0;
+                },
+                getNextState: () =>
+                {
+                    return new DyingState(mController);
                 }
             ));
         }
