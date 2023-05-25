@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform hitBox;
     public CapsuleCollider2D mCollider;
     public Slider mHealthBar;
+    public GameObject GameOverScreen;
     #endregion
 
     #region AttackFields
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] Transform shootController;
     public char lastKey = 'S';
+    public Vector3 initialPosition = new Vector3(3.91f, -0.9f, 0f);
 
     private void Start()
     {
@@ -53,6 +55,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (mHealthBar.value <= 0)
+        {
+            GameManager.Instance.IsPlayerDead = true;
+
+            return;
+        }
+
         if (mDirection != Vector3.zero)
         {
             mAnimator.SetBool("IsMoving", true);
