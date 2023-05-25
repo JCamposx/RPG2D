@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public float PlayerDamage = 1f;
     public bool IsPlayerDead = false;
     public GameObject Player;
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     public static GameManager Instance { private set; get; }
 
@@ -31,6 +32,13 @@ public class GameManager : MonoBehaviour
                 Player.gameObject.SetActive(true);
                 Player.GetComponent<PlayerMovement>().mHealthBar.value = 40f;
                 IsPlayerDead = false;
+
+                foreach (GameObject spawnedEnemy in spawnedEnemies)
+                {
+                    Destroy(spawnedEnemy.gameObject);
+                }
+
+                spawnedEnemies.Clear();
             }
         }
     }

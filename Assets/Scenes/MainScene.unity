@@ -73617,6 +73617,7 @@ MonoBehaviour:
   PlayerDamage: 1
   IsPlayerDead: 0
   Player: {fileID: 1762673860}
+  spawnedEnemies: []
 --- !u!4 &1712739722
 Transform:
   m_ObjectHideFlags: 0

@@ -28,12 +28,18 @@ public class SpawnObjects : MonoBehaviour
                 prefabInstance.transform.Find("HitBox").gameObject.layer = LayerMask.NameToLayer("EnemyHitbox");
 
                 prefabInstance.GetComponent<EnemyController>().Player = player;
+
+                GameManager.Instance.spawnedEnemies.Add(prefabInstance);
             }
             else
             {
                 Vector2 posicionSpawn = GetSpawnPositionVerticalAndHorizontal(i);
+
                 GameObject prefabInstance = Instantiate(enemy, posicionSpawn, Quaternion.identity);
+
                 prefabInstance.GetComponent<EnemyController>().Player = player;
+
+                GameManager.Instance.spawnedEnemies.Add(prefabInstance);
             }
         }
 
