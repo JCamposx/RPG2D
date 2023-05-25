@@ -41,7 +41,7 @@ namespace Enemy
             Transitions.Add(new FSMTransition<EnemyController>(
                 isValid: () =>
                 {
-                    return mController.InvokerTime >= mController.InvokingInterval && mController.CanInvoke;
+                    return mController.InvokerTime >= mController.InvokingInterval && mController.IsBoss;
                 },
                 getNextState: () =>
                 {

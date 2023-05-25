@@ -22,7 +22,11 @@ public class SpawnObjects : MonoBehaviour
             if (spawnDiagonal)
             {
                 Vector2 posicionSpawn = GetSpawnPositionDiagonal(i);
+
                 GameObject prefabInstance = Instantiate(enemy, posicionSpawn, Quaternion.identity);
+
+                prefabInstance.transform.Find("HitBox").gameObject.layer = LayerMask.NameToLayer("EnemyHitbox");
+
                 prefabInstance.GetComponent<EnemyController>().Player = player;
             }
             else

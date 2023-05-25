@@ -47,6 +47,6 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider2D)
     {
-        Destroy(gameObject);
+        Invoke("DestroyGameObject", 0.01f);
     }
 }

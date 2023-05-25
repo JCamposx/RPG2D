@@ -20,11 +20,11 @@ public class PlayerMovement : MonoBehaviour
     private Animator mAnimator;
     private PlayerInput mPlayerInput;
     private Transform hitBox;
+    public CapsuleCollider2D mCollider;
     #endregion
 
     #region AttackFields
     private bool swordAttack = true;
-    private float attackDamage = 1f;
     #endregion
 
     [SerializeField] GameObject bullet;
@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         mRb = GetComponent<Rigidbody2D>();
         mAnimator = GetComponent<Animator>();
         mPlayerInput = GetComponent<PlayerInput>();
+        mCollider = GetComponent<CapsuleCollider2D>();
 
         hitBox = transform.Find("HitBox");
 
@@ -67,6 +68,16 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D)) lastKey = 'D';
 
         if (Input.GetKeyDown(KeyCode.LeftControl)) toggleAttack();
+
+        if (mCollider.IsTouchingLayers(LayerMask.GetMask("BossHitbox")))
+        {
+            Debug.Log("RECEIVE BOSS DAMAGE " + GameManager.Instance.BossDamage);
+        }
+
+        if (mCollider.IsTouchingLayers(LayerMask.GetMask("EnemyHitbox")))
+        {
+            Debug.Log("RECEIVE ENEMY DAMAGE " + GameManager.Instance.EnemyDamage);
+        }
     }
 
     private void FixedUpdate()
@@ -133,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
         swordAttack = !swordAttack;
 
-        attackDamage = (swordAttack) ? 1f : 0.5f;
+        GameManager.Instance.PlayerDamage = (swordAttack) ? 1f : 0.5f;
     }
 
     public void shoot()
