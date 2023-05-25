@@ -18,6 +18,17 @@ namespace Enemy
                     return new IdleState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.TpTime >= mController.TpingInterval && mController.IsBoss;
+                },
+                getNextState: () =>
+                {
+                    return new TpingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()
@@ -33,6 +44,10 @@ namespace Enemy
             Debug.Log("OnExit InvokingState");
         }
 
-        public override void OnUpdate(float deltaTime) { }
+        public override void OnUpdate(float deltaTime)
+        {
+
+            mController.TpTime += deltaTime;
+        }
     }
 }

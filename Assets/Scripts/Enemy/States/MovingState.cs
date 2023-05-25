@@ -48,6 +48,17 @@ namespace Enemy
                     return new InvokingState(mController);
                 }
             ));
+
+            Transitions.Add(new FSMTransition<EnemyController>(
+                isValid: () =>
+                {
+                    return mController.TpTime >= mController.TpingInterval && mController.IsBoss;
+                },
+                getNextState: () =>
+                {
+                    return new TpingState(mController);
+                }
+            ));
         }
 
         public override void OnEnter()
@@ -79,6 +90,7 @@ namespace Enemy
             );
 
             mController.InvokerTime += deltaTime;
+            mController.TpTime += deltaTime;
         }
     }
 }

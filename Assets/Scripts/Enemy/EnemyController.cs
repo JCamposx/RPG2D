@@ -11,7 +11,11 @@ public class EnemyController : MonoBehaviour
     public float Speed = 2f;
     public float AttackDistance = 0.7f;
     public bool AttackingEnd { set; get; } = false;
+    public bool TpingEnd { set; get; } = false;
     public bool InvokingEnd { set; get; } = false;
+    public float TpingInterval { set; get; } = 6f;
+    public float TpTime { set; get; } = 0f;
+    public bool IsTping { set; get; } = false;
     public float InvokingInterval { set; get; } = 4f;
     public float InvokerTime { set; get; } = 0f;
     public bool IsBoss;
@@ -66,11 +70,14 @@ public class EnemyController : MonoBehaviour
     {
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
-            if (IsBoss && bossCanReceiveDamage)
+            if (IsBoss)
             {
-                bossHealthBar.value -= GameManager.Instance.PlayerDamage;
-                bossCanReceiveDamage = false;
-                Invoke("SetBossCanReceiveDamage", 0.5f);
+                if (bossCanReceiveDamage)
+                {
+                    bossHealthBar.value -= GameManager.Instance.PlayerDamage;
+                    bossCanReceiveDamage = false;
+                    Invoke("SetBossCanReceiveDamage", 0.5f);
+                }
             }
             else
             {
@@ -102,5 +109,10 @@ public class EnemyController : MonoBehaviour
     public void SetInvokingEnd()
     {
         InvokingEnd = true;
+    }
+
+    public void SetTpingEnd()
+    {
+        TpingEnd = true;
     }
 }

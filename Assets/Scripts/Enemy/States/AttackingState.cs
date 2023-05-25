@@ -34,8 +34,12 @@ namespace Enemy
         public override void OnEnter()
         {
             Debug.Log("OnEnter AttackingState");
-            mController.animator.SetTrigger("Attack");
-            mController.hitBox.gameObject.SetActive(true);
+            mController.TpTime = 0;
+            if (!mController.IsTping)
+            {
+                mController.animator.SetTrigger("Attack");
+                mController.hitBox.gameObject.SetActive(true);
+            }
         }
 
         public override void OnExit()
