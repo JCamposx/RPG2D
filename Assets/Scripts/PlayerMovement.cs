@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput mPlayerInput;
     private Transform hitBox;
     public CapsuleCollider2D mCollider;
+    public Slider mHealthBar;
     #endregion
 
     #region AttackFields
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         mCollider = GetComponent<CapsuleCollider2D>();
 
         hitBox = transform.Find("HitBox");
+        mHealthBar.value = 5f;
 
         ConversationManager.Instance.OnConversationStop += OnConversationStopDelegate;
     }
@@ -68,16 +70,6 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D)) lastKey = 'D';
 
         if (Input.GetKeyDown(KeyCode.LeftControl)) toggleAttack();
-
-        if (mCollider.IsTouchingLayers(LayerMask.GetMask("BossHitbox")))
-        {
-            Debug.Log("RECEIVE BOSS DAMAGE " + GameManager.Instance.BossDamage);
-        }
-
-        if (mCollider.IsTouchingLayers(LayerMask.GetMask("EnemyHitbox")))
-        {
-            Debug.Log("RECEIVE ENEMY DAMAGE " + GameManager.Instance.EnemyDamage);
-        }
     }
 
     private void FixedUpdate()
@@ -85,6 +77,16 @@ public class PlayerMovement : MonoBehaviour
         mRb.MovePosition(
             transform.position + (mDirection * speed * Time.fixedDeltaTime)
         );
+
+        if (mCollider.IsTouchingLayers(LayerMask.GetMask("BossHitbox")))
+        {
+            mHealthBar.value -= GameManager.Instance.BossDamage * Time.fixedDeltaTime;
+        }
+
+        if (mCollider.IsTouchingLayers(LayerMask.GetMask("EnemyHitbox")))
+        {
+            mHealthBar.value -= GameManager.Instance.EnemyDamage * Time.fixedDeltaTime;
+        }
     }
 
     public void OnMove(InputValue value)

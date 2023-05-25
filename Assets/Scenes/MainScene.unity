@@ -10143,7 +10143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8679245, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6039216, g: 0.30588236, b: 0.32156864, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10458,7 +10458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6037736, g: 0.3047348, b: 0.3221709, a: 1}
+  m_Color: {r: 0.8666667, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -61169,11 +61169,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 663203332}
   m_HandleRect: {fileID: 0}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0.144
+  m_Value: 9.18
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -73720,6 +73720,7 @@ MonoBehaviour:
   fireIcon: {fileID: 8809249}
   swordIcon: {fileID: 1199377138}
   mCollider: {fileID: 1762673867}
+  mHealthBar: {fileID: 1910925473}
   bullet: {fileID: 5146627283146468347, guid: d382e9542e64a5a4398c697867b73945, type: 3}
   shootController: {fileID: 1657088869}
   lastKey: 0
@@ -74145,7 +74146,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 5
   m_WholeNumbers: 0
   m_Value: 0.808
   m_OnValueChanged:
@@ -118459,7 +118460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WakeDistance: 5
   Speed: 2
-  AttackDistance: 1
+  AttackDistance: 0.7
   IsBoss: 1
   Player: {fileID: 1762673862}
   mCollider: {fileID: 0}

@@ -8,12 +8,14 @@ public class EnemyController : MonoBehaviour
     #region Public Properties
     public float WakeDistance = 5f;
     public float Speed = 2f;
-    public float AttackDistance = 1f;
+    public float AttackDistance = 0.7f;
     public bool AttackingEnd { set; get; } = false;
     public bool InvokingEnd { set; get; } = false;
     public float InvokingInterval { set; get; } = 4f;
     public float InvokerTime { set; get; } = 0f;
     public bool IsBoss;
+    private float health;
+    private int hitCount;
     #endregion
 
     #region Components
@@ -42,6 +44,8 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("Horizontal", 0f);
         animator.SetFloat("Vertical", -1f);
 
+        health = (IsBoss) ? 1000f : 1f;
+
         // Creo la maquina de estado finita
         mFSM = new FSM<EnemyController>(new Enemy.IdleState(this));
         mFSM.Begin();  // prendo la mquina de estados
@@ -51,7 +55,15 @@ public class EnemyController : MonoBehaviour
     {
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
-            Debug.Log("ENEMY RECEIVE DAMAGE " + GameManager.Instance.PlayerDamage);
+            if (!IsBoss)
+            {
+                health -= GameManager.Instance.PlayerDamage;
+
+                if (health <= 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 
