@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region AttackFields
     private bool swordAttack = true;
+    private bool canReceiveDamage = true;
     #endregion
 
     [SerializeField] GameObject bullet;
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         mCollider = GetComponent<CapsuleCollider2D>();
 
         hitBox = transform.Find("HitBox");
-        mHealthBar.value = 5f;
+        mHealthBar.value = 40f;
 
         ConversationManager.Instance.OnConversationStop += OnConversationStopDelegate;
     }
@@ -78,15 +79,26 @@ public class PlayerMovement : MonoBehaviour
             transform.position + (mDirection * speed * Time.fixedDeltaTime)
         );
 
+        if (!canReceiveDamage) return;
+
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("BossHitbox")))
         {
-            mHealthBar.value -= GameManager.Instance.BossDamage * Time.fixedDeltaTime;
+            mHealthBar.value -= GameManager.Instance.BossDamage;
+            canReceiveDamage = false;
+            Invoke("SetCanReceiveDamage", 0.5f);
         }
 
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("EnemyHitbox")))
         {
-            mHealthBar.value -= GameManager.Instance.EnemyDamage * Time.fixedDeltaTime;
+            mHealthBar.value -= GameManager.Instance.EnemyDamage;
+            canReceiveDamage = false;
+            Invoke("SetCanReceiveDamage", 0.5f);
         }
+    }
+
+    private void SetCanReceiveDamage()
+    {
+        canReceiveDamage = true;
     }
 
     public void OnMove(InputValue value)
