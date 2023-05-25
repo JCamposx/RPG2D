@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : MonoBehaviour
@@ -26,6 +27,8 @@ public class EnemyController : MonoBehaviour
     public SpawnObjects spawnObjects { set; get; }
     public Transform hitBox { private set; get; }
     public CapsuleCollider2D mCollider;
+    public Slider bossHealthBar;
+    public bool bossCanReceiveDamage = true;
     #endregion
 
     #region Private Properties
@@ -44,7 +47,15 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("Horizontal", 0f);
         animator.SetFloat("Vertical", -1f);
 
-        health = (IsBoss) ? 1000f : 1f;
+        if (IsBoss)
+        {
+            bossHealthBar.value = 30f;
+            health = 1000f;
+        }
+        else
+        {
+            health = 1f;
+        }
 
         // Creo la maquina de estado finita
         mFSM = new FSM<EnemyController>(new Enemy.IdleState(this));
@@ -55,7 +66,13 @@ public class EnemyController : MonoBehaviour
     {
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
-            if (!IsBoss)
+            if (IsBoss && bossCanReceiveDamage)
+            {
+                bossHealthBar.value -= GameManager.Instance.PlayerDamage;
+                bossCanReceiveDamage = false;
+                Invoke("SetBossCanReceiveDamage", 0.5f);
+            }
+            else
             {
                 health -= GameManager.Instance.PlayerDamage;
 
@@ -65,6 +82,11 @@ public class EnemyController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SetBossCanReceiveDamage()
+    {
+        bossCanReceiveDamage = true;
     }
 
     private void FixedUpdate()
