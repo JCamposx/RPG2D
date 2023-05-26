@@ -51,6 +51,8 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("Horizontal", 0f);
         animator.SetFloat("Vertical", -1f);
 
+        rb.isKinematic = true;
+
         if (IsBoss)
         {
             bossHealthBar.value = 30f;
