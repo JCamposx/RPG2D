@@ -80,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S)) lastKey = 'S';
         else if (Input.GetKeyDown(KeyCode.D)) lastKey = 'D';
 
+        if (Input.GetKeyDown(KeyCode.E)) mHealthBar.value = 40f;
+
         if (Input.GetKeyDown(KeyCode.LeftControl)) toggleAttack();
     }
 
