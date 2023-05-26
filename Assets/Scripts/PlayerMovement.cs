@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] Transform shootController;
     public char lastKey = 'S';
-    public Vector3 initialPosition = new Vector3(3.91f, -0.9f, 0f);
+    public Vector3 initialPosition;
 
     private void Start()
     {
@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
         hitBox = transform.Find("HitBox");
         mHealthBar.value = 40f;
+        initialPosition = new Vector3(3.91f, -0.9f, 0f);
 
         ConversationManager.Instance.OnConversationStop += OnConversationStopDelegate;
     }

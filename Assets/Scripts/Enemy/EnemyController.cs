@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     public float InvokerTime { set; get; } = 0f;
     public bool IsBoss;
     private float health;
-    private int hitCount;
+    public Vector3 initialPosition;
     #endregion
 
     #region Components
@@ -55,6 +55,7 @@ public class EnemyController : MonoBehaviour
         {
             bossHealthBar.value = 30f;
             health = 10000f;
+            initialPosition = new Vector3(-7.768f, -0.93f, 0f);
         }
         else
         {
@@ -70,6 +71,7 @@ public class EnemyController : MonoBehaviour
     {
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
+            GameManager.Instance.bossHadSeenPlayer = true;
             ManageGetDamage();
         }
     }

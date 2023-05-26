@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public float EnemyDamage = 0.5f;
     public float PlayerDamage = 1f;
     public bool IsPlayerDead = false;
+    public bool bossHadSeenPlayer = false;
     public GameObject Player;
+    public GameObject Boss;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     public static GameManager Instance { private set; get; }
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
             Player.SetActive(false);
             Player.GetComponent<PlayerMovement>().GameOverScreen.SetActive(true);
 
+            bossHadSeenPlayer = false;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Player.transform.position = Player.GetComponent<PlayerMovement>().initialPosition;
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
                 Player.gameObject.SetActive(true);
                 Player.GetComponent<PlayerMovement>().mHealthBar.value = 40f;
                 IsPlayerDead = false;
+
+                Boss.transform.position = Boss.GetComponent<EnemyController>().initialPosition;
 
                 foreach (GameObject spawnedEnemy in spawnedEnemies)
                 {

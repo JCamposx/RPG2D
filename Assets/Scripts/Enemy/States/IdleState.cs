@@ -40,7 +40,10 @@ namespace Enemy
             Transitions.Add(new FSMTransition<EnemyController>(
                 isValid: () =>
                 {
-                    return mController.IsBoss && mController.InvokerTime >= mController.InvokingInterval;
+                    return
+                        GameManager.Instance.bossHadSeenPlayer &&
+                        mController.IsBoss &&
+                        mController.InvokerTime >= mController.InvokingInterval;
                 },
                 getNextState: () =>
                 {
@@ -51,7 +54,10 @@ namespace Enemy
             Transitions.Add(new FSMTransition<EnemyController>(
                 isValid: () =>
                 {
-                    return mController.IsBoss && mController.TpTime >= mController.TpingInterval;
+                    return
+                        GameManager.Instance.bossHadSeenPlayer &&
+                        mController.IsBoss &&
+                        mController.TpTime >= mController.TpingInterval;
                 },
                 getNextState: () =>
                 {

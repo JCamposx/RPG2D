@@ -76,6 +76,7 @@ namespace Enemy
         {
             Debug.Log("OnEnter MovingState");
             mController.animator.SetBool("IsMoving", true);
+            if (mController.IsBoss) GameManager.Instance.bossHadSeenPlayer = true;
         }
 
         public override void OnExit()
