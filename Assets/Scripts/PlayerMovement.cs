@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform shootController;
     public char lastKey = 'S';
     public Vector3 initialPosition;
+    private bool canShoot = true;
 
     private void Start()
     {
@@ -175,6 +176,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void shoot()
     {
-        Instantiate(bullet, shootController.position, shootController.rotation);
+        if (canShoot)
+        {
+            Instantiate(bullet, shootController.position, shootController.rotation);
+            canShoot = false;
+            Invoke("SetCanShoot", 0.5f);
+        }
+    }
+
+    public void SetCanShoot()
+    {
+        canShoot = true;
     }
 }
