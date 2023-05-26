@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        Boss.GetComponent<EnemyController>().bossHealthBar.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         if (IsPlayerDead)
@@ -38,6 +43,8 @@ public class GameManager : MonoBehaviour
                 IsPlayerDead = false;
 
                 Boss.transform.position = Boss.GetComponent<EnemyController>().initialPosition;
+                Boss.GetComponent<EnemyController>().bossHealthBar.value = 30f;
+                Boss.GetComponent<EnemyController>().bossHealthBar.gameObject.SetActive(false);
 
                 foreach (GameObject spawnedEnemy in spawnedEnemies)
                 {

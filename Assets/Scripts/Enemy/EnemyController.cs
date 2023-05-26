@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
         {
             bossHealthBar.value = 30f;
             health = 10000f;
-            initialPosition = new Vector3(-7.768f, -0.93f, 0f);
+            initialPosition = new Vector3(-5.25f, -9.272f, 0f);
         }
         else
         {
@@ -74,6 +74,14 @@ public class EnemyController : MonoBehaviour
         if (mCollider.IsTouchingLayers(LayerMask.GetMask("PlayerHitbox")))
         {
             GameManager.Instance.bossHadSeenPlayer = true;
+
+            GameManager.Instance
+                   .Boss
+                   .GetComponent<EnemyController>()
+                   .bossHealthBar
+                   .gameObject
+                   .SetActive(true);
+
             ManageGetDamage();
         }
     }
